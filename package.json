@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mongodb-university/js-starter#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.8"
