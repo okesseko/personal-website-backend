@@ -11,8 +11,9 @@ router.get("/article", async (req, res) => {
     const articles = await articleModal.find(filter, null, {
       limit: req.query.limit,
       skip: req.query.page - 1,
+      sort: { releaseTime: req.query.order },
     });
-
+    
     res.status(200).send(articles);
   } catch (err) {
     res.status(500).send(err);
