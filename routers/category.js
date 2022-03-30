@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.get("/category", async (req, res) => {
   try {
-    const categories = await categoryModal.find({});
+    const filter = {};
+    if (req.query.value) filter.value = req.query.value;
+    const categories = await categoryModal.find(filter);
 
     res.status(200).send(categories);
   } catch (err) {
