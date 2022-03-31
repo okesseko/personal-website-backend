@@ -5,20 +5,26 @@ const router = express.Router();
 
 router.get("/article", async (req, res) => {
   try {
-    const { search, ...filterCondition } = req.query;
+    const { search, limit, page, order, ...filterCondition } = req.query;
     const filter = { status: 1, ...filterCondition };
 
     if (search) {
-      filter["$or"] = [{ title: search }, { content: search }];
+      const searchReg = new RegExp(search, "gmi");
+      filter["$or"] = [
+        { title: { $regex: searchReg } },
+        { content: { $regex: searchReg } },
+      ];
     }
 
     const articles = await articleModal.find(filter, null, {
-      limit: req.query.limit,
-      skip: req.query.page - 1,
-      sort: { releaseTime: req.query.order },
+      limit: limit,
+      skip: page - 1,
+      sort: { releaseTime: order },
     });
 
-    res.status(200).send(articles);
+    const totalSize = await articleModal.find(filter).count();
+
+    res.status(200).send({ articles, totalSize });
   } catch (err) {
     res.status(500).send(err);
   }
