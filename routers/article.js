@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get("/article", async (req, res) => {
   try {
-    const { search, limit, page, order, ...filterCondition } = req.query;
+    const { search, limit, page, order, getPrev, getNext, ...filterCondition } =
+      req.query;
     const filter = { status: 1, ...filterCondition };
 
     if (search) {
@@ -24,7 +25,25 @@ router.get("/article", async (req, res) => {
 
     const totalSize = await articleModal.find(filter).count();
 
-    res.status(200).send({ articles, totalSize });
+    let prevArticle = null;
+    let nextArticle = null;
+    if (articles.length) {
+      const curId = articles[0]._id;
+
+      if (getPrev)
+        prevArticle = await articleModal
+          .findOne({ _id: { $lt: curId } })
+          .sort({ _id: -1 })
+          .limit(1);
+
+      if (getNext)
+        nextArticle = await articleModal
+          .findOne({ _id: { $gt: curId } })
+          .sort({ _id: 1 })
+          .limit(1);
+    }
+
+    res.status(200).send({ articles, totalSize, prevArticle, nextArticle });
   } catch (err) {
     res.status(500).send(err);
   }
