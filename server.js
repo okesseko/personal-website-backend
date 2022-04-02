@@ -7,7 +7,11 @@ const categoryRouter = require("./routers/category");
 
 const url = "mongodb://localhost:27017/PersonalWeb";
 const corsOptions = {
-  origin: ["http://www.example.com", "http://localhost:8000"],
+  origin: [
+    "http://www.example.com",
+    "http://localhost:8000",
+    "http://localhost:3000",
+  ],
 };
 
 const app = express();
