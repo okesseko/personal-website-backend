@@ -7,7 +7,7 @@ router.get("/article", async (req, res) => {
   try {
     const { search, limit, page, order, getPrev, getNext, ...filterCondition } =
       req.query;
-    const filter = { status: 1, ...filterCondition };
+    const filter = { ...filterCondition };
 
     if (search) {
       const searchReg = new RegExp(search, "gmi");
@@ -80,20 +80,16 @@ router.patch("/article/:id", async (req, res) => {
   }
 });
 
-// router.delete("/article/:id", async (req, res) => {
-//   try {
-//     if (req.params.id) res.status(500).send("Id is necessary");
+router.delete("/article/:id", async (req, res) => {
+  try {
+    if (!req.params.id) res.status(500).send("Id is necessary");
 
-//     const article = await articleModal.findOne({ id: req.params.id });
-//     if (!article) res.status(404).send("No item found");
+    const del = await articleModal.deleteOne({ id: req.params.id });
 
-//     article.status = 0;
-//     await article.save();
-
-//     res.json(article);
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// });
+    return res.status(200).send("");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 module.exports = router;
