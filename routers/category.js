@@ -5,17 +5,31 @@ const router = express.Router();
 
 router.get("/category", async (req, res) => {
   try {
-    const { limit, page, order, ...filterCondition } = req.query;
+    const { isGetAll, limit, page, order, ...filterCondition } = req.query;
 
     const filter = filterCondition;
 
-    const categories = await categoryModal.find(filter, null, {
-      limit: limit,
-      skip: page - 1,
-      sort: { releaseTime: order },
-    });
+    let categories;
+    let totalSize;
 
-    const totalSize = await categoryModal.find(filter).count();
+    if (isGetAll) {
+      categories = await categoryModal.find();
+      totalSize = await categoryModal.count();
+      
+    } else {
+      categories = await categoryModal.find(filter, null, {
+        limit: limit,
+        skip: page - 1,
+        sort: { releaseTime: order },
+      });
+      totalSize = await categoryModal
+        .find(filter, null, {
+          limit: limit,
+          skip: page - 1,
+          sort: { releaseTime: order },
+        })
+        .count();
+    }
 
     res.status(200).send({ categories, totalSize });
   } catch (err) {
