@@ -20,9 +20,6 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  releaseTime: {
-    type: Date,
-  },
   emotionIcon: {
     type: String,
   },
@@ -33,6 +30,13 @@ const ArticleSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 1,
+  },
+  releaseTime: {
+    type: Date,
+  },
+  createTime: {
+    type: Date,
+    default: Date.now,
   },
 });
 
