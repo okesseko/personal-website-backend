@@ -16,7 +16,7 @@ router.get("/category", async (req, res) => {
       categories = await categoryModal.find();
       totalSize = await categoryModal.count();
     } else {
-      // use reg search 
+      // use reg search
       if (filter.name) {
         const nameReg = new RegExp(filter.name, "gmi");
         filter.name = { $regex: nameReg };
@@ -28,7 +28,7 @@ router.get("/category", async (req, res) => {
 
       categories = await categoryModal.find(filter, null, {
         limit: limit,
-        skip: page - 1,
+        skip: (page - 1) * limit,
       });
       totalSize = await categoryModal.find(filter).count();
     }
