@@ -15,7 +15,6 @@ router.get("/category", async (req, res) => {
     if (isGetAll) {
       categories = await categoryModal.find();
       totalSize = await categoryModal.count();
-      
     } else {
       categories = await categoryModal.find(filter, null, {
         limit: limit,
@@ -40,7 +39,7 @@ router.get("/category", async (req, res) => {
 router.post("/category", async (req, res) => {
   const id =
     parseInt(
-      (await categoryModal.findOne().sort({ createTime: -1 }).id) || "0"
+      (await categoryModal.findOne().sort({ createTime: -1 }))?.id || "0"
     ) + 1;
   const category = new categoryModal({ ...req.body, id });
 

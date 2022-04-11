@@ -50,7 +50,10 @@ router.get("/article", async (req, res) => {
 });
 
 router.post("/article", async (req, res) => {
-  const id = (await articleModal.find({}).count()) + 1;
+  const id =
+    parseInt(
+      (await articleModal.findOne().sort({ createTime: -1 }))?.id || "0"
+    ) + 1;
   const article = new articleModal({ ...req.body, id });
 
   try {
