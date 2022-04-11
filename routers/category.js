@@ -19,15 +19,8 @@ router.get("/category", async (req, res) => {
       categories = await categoryModal.find(filter, null, {
         limit: limit,
         skip: page - 1,
-        sort: { releaseTime: order },
       });
-      totalSize = await categoryModal
-        .find(filter, null, {
-          limit: limit,
-          skip: page - 1,
-          sort: { releaseTime: order },
-        })
-        .count();
+      totalSize = await categoryModal.find(filter).count();
     }
 
     res.status(200).send({ categories, totalSize });
