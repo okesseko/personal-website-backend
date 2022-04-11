@@ -7,7 +7,7 @@ router.get("/article", async (req, res) => {
   try {
     const { search, limit, page, order, getPrev, getNext, ...filterCondition } =
       req.query;
-    const filter = { ...filterCondition };
+    const filter = filterCondition;
 
     if (search) {
       const searchReg = new RegExp(search, "gmi");
