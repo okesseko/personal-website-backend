@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 
 const articleRouter = require("./routers/article");
 const categoryRouter = require("./routers/category");
@@ -25,8 +24,6 @@ const con = mongoose.connection;
 con.on("open", () => {
   console.log("connected...");
 });
-
-app.set("secret", process.env.JWT_SECRET);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
