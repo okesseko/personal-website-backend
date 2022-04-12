@@ -1,11 +1,14 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const articleRouter = require("./routers/article");
 const categoryRouter = require("./routers/category");
+const userRouter = require("./routers/user");
 
-const url = "mongodb://localhost:27017/PersonalWeb";
 const corsOptions = {
   origin: [
     "http://www.example.com",
@@ -16,12 +19,15 @@ const corsOptions = {
 
 const app = express();
 
-mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
 const con = mongoose.connection;
 
 con.on("open", () => {
   console.log("connected...");
 });
+
+app.set("secret", process.env.JWT_SECRET);
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 
@@ -30,6 +36,7 @@ app.use(express.json());
 
 app.use(articleRouter);
 app.use(categoryRouter);
+app.use(userRouter);
 
 app.listen(9000, () => {
   console.log("Server started");
