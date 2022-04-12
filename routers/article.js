@@ -91,7 +91,7 @@ router.delete("/article/:id", authMiddleware, async (req, res) => {
   try {
     if (!req.params.id) res.status(500).send("Id is necessary");
 
-    const del = await articleModal.deleteOne({ id: req.params.id });
+    await articleModal.deleteOne({ id: req.params.id });
 
     return res.status(200).send("");
   } catch (err) {
