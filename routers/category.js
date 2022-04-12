@@ -1,6 +1,8 @@
 const express = require("express");
 const categoryModal = require("../models/category");
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
 router.get("/category", async (req, res) => {
@@ -39,7 +41,9 @@ router.get("/category", async (req, res) => {
   }
 });
 
-router.post("/category", async (req, res) => {
+// all api need verify
+
+router.post("/category", authMiddleware, async (req, res) => {
   const id =
     parseInt(
       (await categoryModal.findOne().sort({ createTime: -1 }))?.id || "0"
@@ -55,7 +59,7 @@ router.post("/category", async (req, res) => {
   }
 });
 
-router.patch("/category/:id", async (req, res) => {
+router.patch("/category/:id", authMiddleware, async (req, res) => {
   try {
     if (!req.params.id) res.status(500).send("Id is necessary");
 
@@ -73,7 +77,7 @@ router.patch("/category/:id", async (req, res) => {
   }
 });
 
-router.delete("/category/:id", async (req, res) => {
+router.delete("/category/:id", authMiddleware, async (req, res) => {
   try {
     if (!req.params.id) res.status(500).send("Id is necessary");
 

@@ -1,6 +1,8 @@
 const express = require("express");
 const articleModal = require("../models/article");
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
 router.get("/article", async (req, res) => {
@@ -49,7 +51,9 @@ router.get("/article", async (req, res) => {
   }
 });
 
-router.post("/article", async (req, res) => {
+// all api need verify
+
+router.post("/article", authMiddleware, async (req, res) => {
   const id =
     parseInt(
       (await articleModal.findOne().sort({ createTime: -1 }))?.id || "0"
@@ -65,7 +69,7 @@ router.post("/article", async (req, res) => {
   }
 });
 
-router.patch("/article/:id", async (req, res) => {
+router.patch("/article/:id", authMiddleware, async (req, res) => {
   try {
     if (!req.params.id) res.status(500).send("Id is necessary");
 
@@ -83,7 +87,7 @@ router.patch("/article/:id", async (req, res) => {
   }
 });
 
-router.delete("/article/:id", async (req, res) => {
+router.delete("/article/:id", authMiddleware, async (req, res) => {
   try {
     if (!req.params.id) res.status(500).send("Id is necessary");
 
