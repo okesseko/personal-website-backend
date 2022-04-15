@@ -75,14 +75,27 @@ router.post("/user", authMiddleware, async (req, res) => {
 
 router.patch("/user/:id", authMiddleware, async (req, res) => {
   try {
+    const { oldPassword, newPassword } = req.body;
     if (!req.params.id) res.status(500).send("Id is necessary");
 
     const user = await userModal.findOne({ id: req.params.id });
     if (!user) res.status(404).send("No item found");
 
-    for (let [key, val] of Object.entries(req.body)) {
-      user[key] = val;
+    const decodePsw = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.PASSWORD_SECRET
+    ).toString(CryptoJS.enc.Utf8);
+
+    if (oldPassword !== decodePsw) {
+      throw "Old password is wrong";
     }
+
+    const encodePsw = CryptoJS.AES.encrypt(
+      newPassword,
+      process.env.PASSWORD_SECRET
+    ).toString();
+
+    user.password = encodePsw;
 
     const save = await user.save();
     return res.status(204).send(save);
