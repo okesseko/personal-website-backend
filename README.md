@@ -24,7 +24,17 @@ JWT_SECRET = < jwt private key>
 PASSWORD_SECRET = <private key to encode password> 
 ```
 
-5. `npm run start` or `yarn start` (if you use yarn)
+5. Remove comment out of the first time create account api
+
+![first create account](/docs/first-create-account.png)
+
+6. `npm run start` or `yarn start` (if you use yarn)
+
+7. Call localhost:9000/user/first to create a admin account
+
+8. Stop project and remove or comment out the first time create account api
+
+9. Restart project and enjoy it 😀
 
 After you start the project. It will automatically open on port **9000**.<br/>
 You can call it by the url `http://localhost:9000` 
