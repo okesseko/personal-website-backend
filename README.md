@@ -1,19 +1,30 @@
-Official MongoDB Node.js Driver Quick Start
-===========================================
+# Personal Website Backend
+### This project is a **Backend Server** for my personal website project, using MongoDB to store data
+<br/>
 
-You can use this starter project to follow along with the
-[MongoDB Node.js Driver Quick Start](https://docs.mongodb.com/drivers/node/current/quick-start/).
+# About `Personal Website Project`
+It is a full-stack personal website system, consisting of project three elements **Main Website**, **Backend Server** and **Content Management System**
 
-This project contains a `package.json` file that contains information
-about the project and its dependencies. The npm package manager uses the
-information in this file to install any dependencies and run your Node.js
-application. Learn more about the npm package manager on the [npm Docs
-site](https://docs.npmjs.com/about-npm).
+Your can click blew link to get more info 
+### Main Website: [Personal Website Dcard](https://github.com/okesseko/personal-website-dcard)
+### Content Management System: [Personal Website CMS](https://github.com/okesseko/personal-website-cms)
 
+# Getting Started
+Firstly, you will need to clone the repo locally. Once you have it ready navigate into the directory and run the following commands:
 
-Getting Started
-===============
+1. Prepared your MongoDB, if you didn't ready yet. Follow this [Download and Install Compass](https://www.mongodb.com/docs/compass/current/install/)
+2. `npm install` or `yarn` (if you use yarn)
+3. Create a `.env` file in the root directory of this repo file
+![env path](/docs/env.png)
 
-Follow the [Set up Your Project](https://docs.mongodb.com/drivers/node/current/quick-start/#set-up-your-project)
-section in the Quick Start guide.
+4. Set three variables DB_URL,JWT_SECRET and PASSWORD_SECRET into .env file
+```
+DB_URL = <mongodb url>
+JWT_SECRET = < jwt private key>
+PASSWORD_SECRET = <private key to encode password> 
+```
 
+5. `npm run start` or `yarn start` (if you use yarn)
+
+After you start the project. It will automatically open on port **9000**.<br/>
+You can call it by the url `http://localhost:9000` 
