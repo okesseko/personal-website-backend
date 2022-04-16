@@ -14,6 +14,7 @@ Firstly, you will need to clone the repo locally. Once you have it ready navigat
 1. Prepared your MongoDB, if you didn't ready yet. Follow this [Download and Install Compass](https://www.mongodb.com/docs/compass/current/install/)
 2. `npm install` or `yarn` (if you use yarn)
 3. Create a `.env` file in the root directory of this repo file
+
 ![env path](/docs/env.png)
 
 4. Set three variables DB_URL,JWT_SECRET and PASSWORD_SECRET into .env file
