@@ -17,7 +17,7 @@ Firstly, you will need to clone the repo locally. Once you have it ready navigat
 
 ![env path](/docs/env.png)
 
-4. Set three variables DB_URL,JWT_SECRET and PASSWORD_SECRET into .env file
+4. Set three variables DB_URL, JWT_SECRET and PASSWORD_SECRET into .env file
 ```
 DB_URL = <mongodb url>
 JWT_SECRET = < jwt private key>
