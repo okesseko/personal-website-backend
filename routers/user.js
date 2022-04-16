@@ -7,6 +7,30 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
+// this api well creat a account admin 
+// for those who using this project first and don't have any account to get verify token
+// router.post("/user/first", async (_, res) => {
+//   const id = 1;
+
+//   const encodePsw = CryptoJS.AES.encrypt(
+//     "admin",
+//     process.env.PASSWORD_SECRET
+//   ).toString();
+
+//   const user = new userModal({ id, account: "admin", password: encodePsw });
+
+//   try {
+//     const save = await user.save();
+
+//     res.status(201).send(save);
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// });
+
+
+
+
 router.post("/login", async (req, res) => {
   const { account, password } = req.body;
 
