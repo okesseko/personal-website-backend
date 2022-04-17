@@ -20,6 +20,10 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  intro: {
+    type: String,
+    required: true,
+  },
   emotionIcon: {
     type: String,
   },
