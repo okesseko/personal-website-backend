@@ -35,6 +35,6 @@ app.use(articleRouter);
 app.use(categoryRouter);
 app.use(userRouter);
 
-app.listen(process.env.port || 9000, () => {
+app.listen(process.env.PORT || 9000, () => {
   console.log("Server started");
 });
