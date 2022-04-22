@@ -38,5 +38,4 @@ app.use(userRouter);
 
 app.listen(process.env.PORT || 9000, () => {
   console.log("Server started");
-  console.log("123123");
 });
