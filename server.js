@@ -10,7 +10,8 @@ const userRouter = require("./routers/user");
 
 const corsOptions = {
   origin: [
-    "http://www.example.com",
+    "https://personal-website-dcard.okesseko.tk",
+    "https://personal-website-cms.okesseko.tk",
     "http://localhost:8000",
     "http://localhost:3000",
   ],
