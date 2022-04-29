@@ -30,19 +30,31 @@ router.get("/article", async (req, res) => {
     let prevArticle = null;
     let nextArticle = null;
     if (articles.length) {
-      const curId = articles[0]._id;
+      const curTime = articles[0].releaseTime;
+     
+      if (getPrev) {
+        if (order === "desc") {
+          prevArticle = await articleModal
+            .findOne({ releaseTime: { $gt: curTime } })
+            .sort({ releaseTime: "asc" });
+        } else {
+          prevArticle = await articleModal
+            .findOne({ releaseTime: { $lt: curTime } })
+            .sort({ releaseTime: "desc" });
+        }
+      }
 
-      if (getPrev)
-        prevArticle = await articleModal
-          .findOne({ _id: { $lt: curId } })
-          .sort({ _id: -1 })
-          .limit(1);
-
-      if (getNext)
-        nextArticle = await articleModal
-          .findOne({ _id: { $gt: curId } })
-          .sort({ _id: 1 })
-          .limit(1);
+      if (getNext) {
+        if (order === "desc") {
+          nextArticle = await articleModal
+            .findOne({ releaseTime: { $lt: curTime } })
+            .sort({ releaseTime: "desc" });
+        } else {
+          nextArticle = await articleModal
+            .findOne({ releaseTime: { $gt: curTime } })
+            .sort({ releaseTime: "asc" });
+        }
+      }
     }
 
     res.status(200).send({ articles, totalSize, prevArticle, nextArticle });
